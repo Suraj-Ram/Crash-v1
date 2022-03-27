@@ -8,6 +8,7 @@ import {
   Alert,
   Dimensions,
   TouchableOpacity,
+  Pressable
 } from "react-native";
 
 import {
@@ -86,6 +87,14 @@ const App = () => {
     setValue(value + data2[data2.length - 1]);
   };
 
+  const displayMoney = (amt) => {
+    var formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD"
+    })
+    return formatter.format(amt)
+  }
+
   return (
     <SafeAreaView styles={graphStyles.container}>
       <Text>Crash v1</Text>
@@ -128,14 +137,15 @@ const App = () => {
         }}
       />
       <View style={styles.buttonContainer}>
-        <Text>{Math.round(data2[data2.length - 1])}</Text>
-        <Text>{`$ ${value}`}</Text>
+        <Text style={styles.ticker}>{"+ " + Math.round(data2[data2.length - 1])}</Text>
 
-        <TouchableOpacity
+        <Text style={styles.money}>{displayMoney(value)}</Text>
+
+        <Pressable style={styles.buyButton}
           onPress={shouldTick ? () => handleSell() : () => handleBuy()}
         >
-          <Text style={styles.buyButton}>{shouldTick ? "SELL" : "BUY"}</Text>
-        </TouchableOpacity>
+          <Text style={styles.buyButtonText}>{shouldTick ? "SELL" : "BUY"}</Text>
+        </Pressable>
         {/* 
         <TouchableOpacity onPress={() => handleBuy()}>
           <Text style={styles.buyButton}>BUY</Text>
@@ -144,17 +154,47 @@ const App = () => {
           <Text style={styles.buyButton}>SELL</Text>
         </TouchableOpacity> */}
 
-        <Button title="SELL"></Button>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  buyButton: {
-    color: "red",
+  ticker: {
     fontSize: 18,
+    padding: 5,
+    marginBottom: 10,
+  },
+  money: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#16a34a",
+    padding: 5,
+    marginBottom: 10,
+
+
+  },
+  buyButton: {
+    // color: "red",
+    // fontSize: 20,
+    // fontWeight: "bold",
+    // borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+
     //display: shouldTick && "none",
+  },
+  buyButtonText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
   buttonContainer: {
     alignItems: "center",
