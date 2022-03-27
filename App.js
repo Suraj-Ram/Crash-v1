@@ -78,6 +78,10 @@ const App = () => {
   const BUY_AMT = 100;
 
   const handleBuy = () => {
+    if (value <= BUY_AMT) {
+      Alert.alert("You don't have enough money!");
+      return;
+    }
     setShouldTick(true);
     setValue(value - BUY_AMT);
   };
@@ -85,6 +89,7 @@ const App = () => {
   const handleSell = () => {
     setShouldTick(false);
     setValue(value + data2[data2.length - 1]);
+    setData2([1]);
   };
 
   const displayMoney = (amt) => {
@@ -153,7 +158,6 @@ const App = () => {
         <TouchableOpacity onPress={() => handleSell()}>
           <Text style={styles.buyButton}>SELL</Text>
         </TouchableOpacity> */}
-
       </View>
     </SafeAreaView>
   );
