@@ -75,7 +75,7 @@ const App = () => {
     },
   });
 
-  const BUY_AMT = 100;
+  const BUY_AMT = 85;
 
   const handleBuy = () => {
     if (value <= BUY_AMT) {
@@ -149,7 +149,7 @@ const App = () => {
         <Pressable style={styles.buyButton}
           onPress={shouldTick ? () => handleSell() : () => handleBuy()}
         >
-          <Text style={styles.buyButtonText}>{shouldTick ? "SELL" : "BUY"}</Text>
+          <Text style={styles.buyButtonText}>{shouldTick ? "SELL" : `BUY ($${BUY_AMT})`}</Text>
         </Pressable>
         {/* 
         <TouchableOpacity onPress={() => handleBuy()}>
@@ -164,6 +164,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+
   ticker: {
     fontSize: 18,
     padding: 5,
